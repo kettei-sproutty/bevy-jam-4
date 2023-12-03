@@ -1,0 +1,31 @@
+name: Vercel Preview Deployment
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+on:
+  push:
+
+jobs:
+  Deploy-Preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+      - run: rustup target add wasm32-unknown-unknown
+      - run: cargo install wasm-bindgen-cli
+      - run: |
+          cargo build --release --target wasm32-unknown-unknown
+          wasm-bindgen --no-typescript --target web \
+          --out-dir ./www/wasm \
+          --out-name "bevy_jam_4" \
+          ./target/wasm32-unknown-unknown/release/bevy_jam_4.wasm
+          cp -R assets/* www/public
+      - uses: oven-sh/setup-bun@v1
+      - run: cd www && bun install
+      - run: bun add -g vercel@latest
+      - run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+      - run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}

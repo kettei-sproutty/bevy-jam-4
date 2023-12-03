@@ -18,3 +18,15 @@ This is an attempt of partecipation for the bevy jam 4th edition.
   ```bash
   cargo watch -x 'run --target wasm32-unknown-unknown'
   ```
+
+* Build
+  ```bash
+  cargo build --release --target wasm32-unknown-unknown
+
+  wasm-bindgen --no-typescript --target web \
+      --out-dir ./www/wasm \
+      --out-name "bevyjam4" \
+      ./target/wasm32-unknown-unknown/release/bevy_jam_4.wasm
+
+  cp -R assets/* wwww/public/*
+  ```

@@ -1,11 +1,11 @@
 mod state;
-mod ui;
 
 use bevy::{app::AppExit, prelude::*};
 use state::MenuState;
-use ui::*;
 
-use crate::{state::GameState, utils::despawn_screen};
+use crate::state::GameState;
+use crate::ui::create_button;
+use crate::utils::despawn_screen;
 
 pub struct MenuPlugin;
 
