@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-pub fn create_button<'a>(children: &mut ChildBuilder, text: &str, action: impl Component) -> () {
+pub fn create_button(children: &mut ChildBuilder, text: &str, action: impl Component) {
   let button_style = Style {
     width: Val::Px(200.0),
     height: Val::Px(40.0),

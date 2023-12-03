@@ -72,7 +72,7 @@ fn main_menu_setup(mut commands: Commands, asset_server: Res<AssetServer>) {
           position_type: PositionType::Absolute,
           ..default()
         },
-        image: asset_server.load("splash.png").into(),
+        image: asset_server.load("images/splash.png").into(),
         ..default()
       });
     })

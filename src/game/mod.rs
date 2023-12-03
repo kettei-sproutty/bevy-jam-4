@@ -8,7 +8,7 @@ pub struct GamePlugin;
 impl Plugin for GamePlugin {
   fn build(&self, app: &mut App) {
     app
-      .add_systems(OnEnter(GameState::InGame), (setup_physics))
+      .add_systems(OnEnter(GameState::InGame), setup_physics)
       .add_systems(Update, print_ball_altitude);
   }
 }
